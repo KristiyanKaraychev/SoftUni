@@ -1,0 +1,21 @@
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: rgb(108, 156, 59);
+}
+
+p {
+    padding-bottom: right;
+}
+
+.red {
+    background-color: rgb(225, 18, 35);
+}
+
+#button1 {
+    color: rgb(33, 17, 217);
+}
+
+div {
+    display: inline;
+}
