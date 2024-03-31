@@ -1,0 +1,104 @@
+function firstProblem(input) {
+    let initialString = input.shift();
+    let newString = initialString;
+    let counter = 0;
+
+    while (input[counter] !== "Finish") {
+        let parts = input[counter].split(" ");
+        let command = parts.shift();
+
+        switch (command) {
+            case "Replace":
+                let currentChar = parts.shift();
+                let newChar = parts.shift();
+
+                while (newString.includes(currentChar)) {
+                    newString = newString.replace(currentChar, newChar);
+                }
+
+                console.log(newString);
+                break;
+            case "Cut":
+                let indexStart = Number(parts.shift());
+                let indexEnd = Number(parts.shift());
+
+                if (
+                    indexStart >= 0 &&
+                    indexStart < newString.length &&
+                    indexEnd >= 0 &&
+                    indexEnd < newString.length
+                ) {
+                    indexEnd++;
+                    let stringToRemove = newString.substring(
+                        indexStart,
+                        indexEnd
+                    );
+                    newString = newString.replace(stringToRemove, "");
+                    console.log(newString);
+                } else {
+                    console.log("Invalid indices!");
+                }
+                break;
+            case "Make":
+                let tempString = "";
+                if (String(parts) === "Upper") {
+                    for (let char of newString) {
+                        tempString += char.toUpperCase();
+                    }
+                } else {
+                    for (let char of newString) {
+                        tempString += char.toLowerCase();
+                    }
+                }
+                newString = tempString;
+                console.log(newString);
+                break;
+            case "Check":
+                if (newString.includes(String(parts))) {
+                    console.log(`Message contains ${String(parts)}`);
+                } else {
+                    console.log(`Message doesn't contain ${String(parts)}`);
+                }
+                break;
+            case "Sum":
+                let startIndex = Number(parts.shift());
+                let endIndex = Number(parts.shift());
+                let tempSubstring = "";
+
+                if (
+                    startIndex >= 0 &&
+                    startIndex < newString.length &&
+                    endIndex >= 0 &&
+                    endIndex < newString.length
+                ) {
+                    endIndex++;
+                    tempSubstring = newString.substring(startIndex, endIndex);
+
+                    let sum = 0;
+
+                    for (let char of tempSubstring) {
+                        sum += char.charCodeAt(0);
+                    }
+
+                    console.log(sum);
+                } else {
+                    console.log("Invalid indices!");
+                }
+                break;
+            default:
+                break;
+        }
+
+        counter++;
+    }
+}
+
+firstProblem([
+    "ILikeSoftUni",
+    "Replace I We",
+    "Make Upper",
+    "Check SoftUni",
+    "Sum 1 4",
+    "Cut 1 4",
+    "Finish",
+]);

@@ -26,3 +26,6 @@
 // }
 
 // objectDemo();
+
+let a = "Hello World";
+console.log("George".charAt(2));
