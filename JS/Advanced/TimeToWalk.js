@@ -7,8 +7,6 @@ function timeToWalk(steps, footLength, speed) {
 
     time += rests;
 
-    console.log(time);
-
     let seconds = Math.round(time % 60);
     let minutes = Math.floor(time / 60);
     let hours = Math.floor(minutes / 60);
