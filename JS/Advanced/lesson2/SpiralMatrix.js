@@ -1,22 +1,56 @@
-function spiral(matrix) {
-    const arr = [];
+function spiralMatrix(x, y) {
+    let matrix = [];
 
-    while (matrix.length) {
-        arr.push(
-            ...matrix.shift(),
-            ...matrix.map((a) => a.pop()),
-            ...(matrix.pop() || []).reverse(),
-            ...matrix.map((a) => a.shift()).reverse()
-        );
+    for (let i = 0; i < x; i++) {
+        let tempArr = Array(y);
+        matrix[i] = tempArr.fill(0);
     }
-    return arr;
+
+    let counter = 0;
+    let tempX = 0;
+    let tempY = 0;
+    let step = 0;
+
+    while (counter < x * y) {
+        while (tempY + step < y) {
+            counter++;
+            matrix[tempX][tempY] = counter;
+            tempY++;
+        }
+        tempY--;
+        tempX++;
+
+        while (tempX + step < x) {
+            counter++;
+            matrix[tempX][tempY] = counter;
+            tempX++;
+        }
+
+        tempX--;
+        tempY--;
+        //step++;
+
+        while (tempY >= step) {
+            counter++;
+            matrix[tempX][tempY] = counter;
+            tempY--;
+        }
+
+        tempX--;
+        tempY++;
+        step++;
+
+        while (tempX >= step) {
+            counter++;
+            matrix[tempX][tempY] = counter;
+            tempX--;
+        }
+
+        tempY++;
+        tempX++;
+    }
+
+    matrix.forEach((arr) => console.log(arr.join(" ")));
 }
 
-const matrix = [
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12],
-    [13, 14, 15, 16],
-];
-
-console.log(spiral(matrix)); // [1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10]
+spiralMatrix(9, 9);
