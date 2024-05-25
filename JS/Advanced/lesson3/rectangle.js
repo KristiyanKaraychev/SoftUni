@@ -8,7 +8,6 @@ function rectangle(width, height, color = "") {
         },
     };
 
-    console.log(rect);
     return rect;
 }
 
