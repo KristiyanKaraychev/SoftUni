@@ -14,7 +14,9 @@ function sortedList() {
             this.size = this.elements.length;
         },
         get(index) {
-            return this.elements[index];
+            if (this.elements[index] != undefined) {
+                return this.elements[index];
+            }
         },
     };
 
