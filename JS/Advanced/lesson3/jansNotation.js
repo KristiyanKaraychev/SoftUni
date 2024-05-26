@@ -1,11 +1,5 @@
 function jansNotation(input) {
     let numbers = [];
-    let operators = [];
-
-    // if (operators.length >= numbers.length) {
-    //     console.log("Error: not enough operands!");
-    //     return;
-    // }
 
     for (const element of input) {
         if (isNaN(element)) {
