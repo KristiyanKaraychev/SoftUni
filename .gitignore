@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Ignore package.json
+package.json
+
+# Other files to ignore
+dist/
+build/
