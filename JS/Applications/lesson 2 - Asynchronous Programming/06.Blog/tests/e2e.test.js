@@ -3,7 +3,7 @@ const { expect } = require("chai");
 
 const host = "http://localhost:3000"; // Application host (NOT service host - that can be anything)
 
-const DEBUG = false;
+const DEBUG = true;
 const slowMo = 500;
 
 const mockData = {
@@ -87,7 +87,6 @@ describe("E2E tests", function () {
         });
 
         it("Check post title", async () => {
-            debugger;
             const data = mockData.blog;
             const comment = mockData.comments;
             const { get } = await handle(endpoints.blog);
@@ -107,6 +106,9 @@ describe("E2E tests", function () {
             const post = await page.$$eval(`#post-title`, (t) =>
                 t.map((s) => s.textContent)
             );
+
+            debugger;
+
             expect(post[0]).to.equal(data[0].title);
         });
 

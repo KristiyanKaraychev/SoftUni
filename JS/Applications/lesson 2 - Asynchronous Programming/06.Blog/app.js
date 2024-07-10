@@ -4,8 +4,6 @@ function attachEvents() {
         comments: "http://localhost:3030/jsonstore/blog/comments",
     };
 
-    let postsObj = {};
-
     const buttonLoadPosts = document.getElementById("btnLoadPosts");
     const buttonViewPosts = document.getElementById("btnViewPost");
     const postsSelectEl = document.getElementById("posts");
@@ -43,19 +41,11 @@ function attachEvents() {
         optionEl.setAttribute("value", id);
         optionEl.textContent = title;
 
-        postsObj[title] = {
-            body: body,
-        };
-
         return optionEl;
     }
 
     function showPost() {
         postID = postsSelectEl.value;
-
-        let selectedPost = postsSelectEl.options[postsSelectEl.selectedIndex];
-        postTileEl.textContent = selectedPost.text;
-        postBodyEl.textContent = postsObj[selectedPost.text].body;
 
         postCommentsEl.replaceChildren();
 
@@ -75,15 +65,26 @@ function attachEvents() {
                     console.log(err);
                 });
 
-            // fetch(`${endpoints.posts}/${postID}`)
-            //     .then((res) => res.json())
-            //     .then((post) => {
-            //         postTileEl.textContent = post.title;
-            //         postBodyEl.textContent = post.body;
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     });
+            fetch(`${endpoints.posts}/${postID}`)
+                .then((res) => res.json())
+                .then((post) => {
+                    let title = undefined;
+                    let body = undefined;
+
+                    if (post.length) {
+                        title = post[0].title;
+                        body = post[0].body;
+                    } else {
+                        title = post.title;
+                        body = post.body;
+                    }
+                    console.log(post);
+                    postTileEl.textContent = title;
+                    postBodyEl.textContent = body;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }
 }
