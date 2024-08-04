@@ -42,7 +42,9 @@ function loadData() {
     fetch(URL)
         .then((res) => res.json())
         .then((data) => {
-            render(dropDownTemplate(Object.values(data)), menuElement);
+            Object.values(data).forEach((e) =>
+                render(dropDownTemplate(e), menuElement)
+            );
         })
         .catch((err) => console.error(err));
 }
