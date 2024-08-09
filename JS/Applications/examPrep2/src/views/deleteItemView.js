@@ -7,7 +7,7 @@ export function loadDeleteItemPage(context) {
     //         alert("You are not the owner and you cannot delete");
     //         return;
     //     }
-
+    debugger;
     let confirmation = confirm("Are you sure?");
 
     if (!confirmation) {
@@ -15,7 +15,7 @@ export function loadDeleteItemPage(context) {
     }
 
     dataService.deleteEntry(context.params.id).then(() => {
-        context.page.redirect(`/catalog`);
+        context.page.redirect(`/dashboard`);
     });
     // });
 }

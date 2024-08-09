@@ -63,40 +63,45 @@ export function loadItemDetailsPage(context) {
     dataService
         .getTotalLikes(context.params.id)
         .then((numLikes) => {
-            return numLikes;
-        })
-        .then((numLikes) => {
             if (context.user) {
                 return dataService
                     .hasUserLikedEntry(context.params.id, context.user._id)
-                    .then((hasLiked) => {
-                        return [numLikes, !!hasLiked];
-                    });
+                    .then((hasLiked) => [numLikes, !!hasLiked]);
             } else {
                 return [numLikes, true];
             }
         })
         .then(([numLikes, hasLiked]) => {
-            dataService.getSingleEntry(context.params.id).then((data) => {
-                let isOwner = authService.isOwner(data._ownerId);
-                let isUser = !!context.user;
+            return dataService
+                .getSingleEntry(context.params.id)
+                .then((data) => ({
+                    data,
+                    numLikes,
+                    hasLiked,
+                }));
+        })
+        .then(({ data, numLikes, hasLiked }) => {
+            let isOwner = authService.isOwner(data._ownerId);
+            let isUser = !!context.user;
 
-                const onLike = () => {
-                    dataService.likeEntry(context.params.id).then(() => {
-                        context.page.redirect(`/catalog/${context.params.id}`);
-                    });
-                };
+            const onLike = () => {
+                dataService.likeEntry(context.params.id).then(() => {
+                    context.page.redirect(`/catalog/${context.params.id}`);
+                });
+            };
 
-                context.render(
-                    itemDetailTemplate(
-                        data,
-                        isOwner,
-                        isUser,
-                        numLikes,
-                        hasLiked,
-                        onLike
-                    )
-                );
-            });
+            context.render(
+                itemDetailTemplate(
+                    data,
+                    isOwner,
+                    isUser,
+                    numLikes,
+                    hasLiked,
+                    onLike
+                )
+            );
+        })
+        .catch((error) => {
+            console.error(error);
         });
 }
